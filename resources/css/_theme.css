@@ -1,3 +1,5 @@
+/* _theme.css */
+
 @theme {
   /* Breakpoint */
   --breakpoint-xs: 30rem;
@@ -10,6 +12,7 @@
   /* Font Family */
   --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+  --font-serif: "Lora", ui-serif, serif;
 
   /* Overlay Color */
   --color-overlay: var(--wp--preset--color--black);

@@ -51,6 +51,11 @@
           "fontFamily": "'Geist Mono Variable', ui-monospace, monospace",
           "name": "Font Mono",
           "slug": "mono"
+        },
+        {
+          "fontFamily": "'Lora', ui-serif, serif",
+          "name": "Font Serif",
+          "slug": "serif"
         }
       ],
 
