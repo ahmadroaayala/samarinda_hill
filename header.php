@@ -3,7 +3,6 @@
  * View: Root Header
  * @package KarsaStart
  */
-
 ?>
 
 <!DOCTYPE html>
@@ -21,5 +20,17 @@
   <div id="page" class="min-h-screen flex flex-col">
 
     <!-- Header Template Here -->
+    <header class="py-4 bg-surface border-b border-b-outline/60 shadow-lg">
+      <div class="container">
+
+        <div>
+          <span class="font-serif flex flex-col font-semibold text-on-surface leading-tight">
+            <span>Samarinda</span>
+            <span>Hill</span>
+          </span>
+        </div>
+
+      </div>
+    </header>
 
     <main id="content" class="flex-1 flex flex-col">
