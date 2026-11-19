@@ -1,0 +1,64 @@
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-outline, currentColor);
+  }
+
+  body {
+    @apply font-sans text-on-surface-variant leading-normal bg-surface;
+  }
+
+  /* heading tracking */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+     @apply text-on-surface tracking-[-0.02em];
+  }
+
+  /* heading weight */
+  h1 {
+    @apply font-bold;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply font-semibold;
+  }
+
+  h6 {
+    @apply font-medium;
+  }
+
+  /* heading size */
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+
+  h4 {
+    @apply text-base;
+  }
+
+  h5 {
+    @apply text-base;
+  }
+
+  h6 {
+    @apply text-base;
+  }
+}
