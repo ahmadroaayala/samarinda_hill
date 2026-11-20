@@ -5,21 +5,17 @@ export default defineConfig(({ command }) => {
   const isBuild = command === "build";
 
   return {
-    base: isBuild ? "/wp-content/themes/karsa_starter_theme/dist/" : "/",
+    base: isBuild ? "/wp-content/themes/samarinda_hill/dist/" : "/",
     server: {
       port: 3000,
       cors: true,
-      origin: ".",
+      origin: "http://localhost:3000",
     },
     build: {
       manifest: true,
       outDir: "dist",
       rollupOptions: {
-        input: [
-          "resources/js/app.js",
-          "resources/css/app.css",
-          "resources/css/editor-style.css",
-        ],
+        input: ["src/js/app.js", "src/css/app.css", "src/css/editor-style.css"],
       },
     },
     plugins: [tailwindcss()],

@@ -20,7 +20,7 @@
   <div id="page" class="min-h-screen flex flex-col">
 
     <!-- Header Template Here -->
-    <header class="py-4 bg-surface border-b border-b-outline/60 shadow-lg">
+    <header class="py-4 bg-surface border-b border-b-outline/60 shadow-sm">
       <div class="container">
 
         <div>

@@ -9,6 +9,7 @@
 
   /* Font Family */
   --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Lora", ui-serif, serif;
   --font-mono: "Geist Mono Variable", ui-monospace, monospace;
 
   /* Overlay Color */

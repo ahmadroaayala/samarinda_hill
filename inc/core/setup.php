@@ -42,9 +42,9 @@ function tailpress_setup(): TailPress\Framework\Theme
         ->withCompiler(
           new TailPress\Framework\Assets\ViteCompiler,
           fn($compiler) => $compiler
-            ->registerAsset('resources/css/app.css')
-            ->registerAsset('resources/js/app.js')
-            ->editorStyleFile('resources/css/editor-style.css')
+            ->registerAsset('src/css/app.css')
+            ->registerAsset('src/js/app.js')
+            ->editorStyleFile('src/css/editor-style.css')
         )
         ->enqueueAssets()
     )
