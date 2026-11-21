@@ -10,66 +10,109 @@ if (empty($items)) {
   return;
 }
 
-$first = $items[0];
+$unique_bgs = [];
+foreach ($items as $item) {
+  $cid = (string) ($item['cluster']['id'] ?? '');
+  if ($cid !== '' && !isset($unique_bgs[$cid])) {
+    $unique_bgs[$cid] = [
+      'id' => $cid,
+      'url' => $item['cluster']['image_url'],
+      'alt' => $item['cluster']['image_alt'],
+    ];
+  }
+}
 
-$bg_list = array_map(fn($item) => [
-  'id' => $item['cluster']['id'],
-  'url' => $item['cluster']['image_url'],
-  'alt' => $item['cluster']['image_alt']
-], $items);
+$cluster_map = array_map(
+  fn($item) => (string) ($item['cluster']['id'] ?? ''),
+  $items
+);
 
 ?>
-<section class="relative min-h-[60vh] py-8 md:py-12 flex flex-col overflow-hidden"
+<section class="relative min-h-[80vh] py-8 md:py-12 flex flex-col overflow-hidden"
   x-data='{
-    bgs: <?= htmlspecialchars(wp_json_encode($bg_list), ENT_QUOTES, 'UTF-8') ?>,
+    clusterMap: <?= htmlspecialchars(wp_json_encode($cluster_map), ENT_QUOTES, 'UTF-8') ?>,
     index: 0,
-    get currentBg() {
-      return this.bgs[this.index] || this.bgs[0];
-    },
-    init() {
-      [...new Set(this.bgs.map(bg => bg.url))].forEach(url => {
-        const img = new Image();
-        img.src = url;
-      });
+    get activeCluster() {
+      return this.clusterMap[this.index] || "";
     },
     next() {
-      this.index = (this.index + 1) % this.bgs.length;
+      this.index = (this.index + 1) % this.clusterMap.length;
     },
     prev() {
-      this.index = (this.index - 1 + this.bgs.length) % this.bgs.length;
+      this.index = (this.index - 1 + this.clusterMap.length) % this.clusterMap.length;
     },
   }'>
 
-
-  <img
-    src="<?= esc_url($first['cluster']['image_url']) ?>"
-    alt="<?= esc_attr($first['cluster']['image_alt']) ?>"
-    :src="currentBg.url"
-    :alt="currentBg.alt"
-    fetchpriority="high"
-    decoding="async"
-    class="absolute inset-0 size-full object-cover object-center pointer-events-none">
+  <?php $bg_i = 0;
+  foreach ($unique_bgs as $cid => $bg): ?>
+    <img
+      src="<?= esc_url($bg['url']) ?>"
+      alt="<?= esc_attr($bg['alt']) ?>"
+      :class="activeCluster === '<?= esc_js($cid) ?>' ? 'opacity-100' : 'opacity-0'"
+      <?= $bg_i === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>
+      decoding="async"
+      class="absolute inset-0 size-full object-cover object-center pointer-events-none">
+    <?php $bg_i++; endforeach; ?>
 
   <div
     aria-hidden="true"
-    class="absolute inset-0 bg-linear-to-t from-overlay/90 via-overlay/45 to-overlay/15 pointer-events-none"></div>
+    class="absolute inset-0 bg-linear-to-t from-overlay/95 via-overlay/50 to-overlay/20 pointer-events-none">
+  </div>
 
-  <div class="relative mt-auto z-10 container flex flex-col gap-4">
-    <div class="flex flex-col gap-2">
-      <h1 class="text-white">Ruang Tumbuh Nyaman untuk Setiap Fase Keluarga</h1>
-      <p class="text-white/80">
-        Menyatukan hunian tropis kontemporer dengan taman tematik, jalur jogging track, dan sistem keamanan satu pintu
-        24 jam dalam satu kawasan terpadu.
-      </p>
+  <div class="relative mt-auto z-10 container 
+  flex flex-col md:flex-row
+  md:items-end
+  gap-8">
+    <div class="">
+      <div class="flex flex-col gap-2 ">
+        <h1 class=" text-white text-4xl md:text-5xl/tighter">Ruang Tumbuh Nyaman untuk Setiap Fase Keluarga</h1>
+        <p class="text-white/80">
+          Menyatukan hunian tropis kontemporer dengan taman tematik, jalur jogging track, dan sistem keamanan satu pintu
+          24 jam dalam satu kawasan terpadu.
+        </p>
+      </div>
     </div>
 
-    <div class="mx-auto">
-      <?php foreach ($items as $item): ?>
-        <div class="h-80 aspect-square rounded-2xl overflow-hidden">
-          <img
-            class="aspect-square object-cover"
-            src="<?= esc_url(get_the_post_thumbnail_url($item['id'])) ?>"
-            alt="<?= esc_attr(get_the_title($item['id'])) ?>">
+    <div>
+      <?php foreach ($items as $i => $item):
+        ?>
+        <div
+          x-show="index === <?= (int) $i ?>"
+          <?= $i > 0 ? 'style="display: none;"' : '' ?>
+          class=" flex justify-center">
+
+          <article class="bg-surface-transparent max-w-72 mx-auto
+         flex flex-col gap-4">
+            <img
+              class="aspect-video object-cover rounded-2xl"
+              src="<?= esc_url(get_the_post_thumbnail_url($item['id'])) ?>"
+              alt="<?= esc_attr(get_the_title($item['id'])) ?>">
+
+            <div class="">
+              <div class="flex gap-4 items-center justify-center">
+                <button
+                  type="button"
+                  x-on:click="prev()"
+                  class="inline-flex p-2 rounded-full">
+                  <i data-lucide="chevron-left" class="size-4 text-on-primary"></i>
+                </button>
+
+                <div class="w-8 inline-flex items-center justify-center gap-1 text-sm text-on-primary">
+                  <span x-text="index + 1"></span> / <span
+                    class="text-on-primary/60"><?= esc_html(count($items)) ?></span>
+                </div>
+
+                <button
+                  type="button"
+                  x-on:click="next()"
+                  class="inline-flex p-2 rounded-full">
+                  <i data-lucide="chevron-right" class="size-4 text-on-primary"></i>
+                </button>
+              </div>
+            </div>
+
+          </article>
+
         </div>
       <?php endforeach ?>
     </div>
