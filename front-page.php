@@ -36,7 +36,9 @@ get_header();
 ?>
 
 <!-- Fasilitas -->
-<?php Helpers::module('facility-slider', [
+<?php Helpers::module('facility-showcase', [
+  'archive_url' => get_post_type_archive_link('facility'),
+  'archive_url_label' => __('Semua fasilitas', 'karsa_start'),
   'title' => __('Fasilitas', 'karsa_start'),
   'items' => $facility_query
 ]) ?>

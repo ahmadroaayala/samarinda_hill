@@ -27,7 +27,7 @@ class Helpers
     if (!isset($name))
       return '';
 
-    return get_theme_file_uri("public/images/{$name}.png");
+    return get_theme_file_uri("public/images/{$name}.webp");
   }
 
   private static function render(string $path, array $args = []): void
