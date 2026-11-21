@@ -10,7 +10,6 @@ $wrapper_class = $args['wrapper_class'] ?? '';
 $title = $args['title'] ?? 'Card Title';
 $post_url = $args['post_url'] ?? '#';
 
-$thumbnail_id = absint($args['thumbnail_id'] ?? 0);
 $thumbnail_url = !empty($args['thumbnail_url']) && is_string($args['thumbnail_url'])
   ? $args['thumbnail_url']
   : Helpers::get_image_placeholder_url('fallback-2-undraw');
