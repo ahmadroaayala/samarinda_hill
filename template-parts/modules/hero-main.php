@@ -20,7 +20,7 @@ $bg_list = array_map(fn($item) => [
 
 ?>
 <section class="relative min-h-[60vh] py-8 md:py-12 flex flex-col overflow-hidden"
-  x-data="{
+  x-data='{
     bgs: <?= htmlspecialchars(wp_json_encode($bg_list), ENT_QUOTES, 'UTF-8') ?>,
     index: 0,
     get currentBg() {
@@ -38,8 +38,7 @@ $bg_list = array_map(fn($item) => [
     prev() {
       this.index = (this.index - 1 + this.bgs.length) % this.bgs.length;
     },
-
-  }">
+  }'>
 
 
   <img
@@ -51,14 +50,11 @@ $bg_list = array_map(fn($item) => [
     decoding="async"
     class="absolute inset-0 size-full object-cover object-center pointer-events-none">
 
-
-
-
   <div
     aria-hidden="true"
     class="absolute inset-0 bg-linear-to-t from-overlay/90 via-overlay/45 to-overlay/15 pointer-events-none"></div>
 
-  <div class="relative mt-auto z-10 container">
+  <div class="relative mt-auto z-10 container flex flex-col gap-4">
     <div class="flex flex-col gap-2">
       <h1 class="text-white">Ruang Tumbuh Nyaman untuk Setiap Fase Keluarga</h1>
       <p class="text-white/80">
@@ -67,8 +63,15 @@ $bg_list = array_map(fn($item) => [
       </p>
     </div>
 
-    <div>
-
+    <div class="mx-auto">
+      <?php foreach ($items as $item): ?>
+        <div class="h-80 aspect-square rounded-2xl overflow-hidden">
+          <img
+            class="aspect-square object-cover"
+            src="<?= esc_url(get_the_post_thumbnail_url($item['id'])) ?>"
+            alt="<?= esc_attr(get_the_title($item['id'])) ?>">
+        </div>
+      <?php endforeach ?>
     </div>
 
   </div>
