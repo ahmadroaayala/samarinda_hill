@@ -6,6 +6,19 @@ use KarsaStart\Helpers;
  * @package KarsaStart
  */
 
+// CLUSTER ARGS AND QUERY 
+$cluster_args = [
+  'post_type' => 'facility',
+  'post_status' => 'publish',
+  'posts_per_page' => -1,
+  'orderby' => 'title',
+  'order' => 'ASC',
+  'no_found_rows' => true,
+];
+
+$cluster_query = new WP_Query($cluster_args);
+// END OF CLUSTER ARGS AND QUERY
+
 // FACILITY ARGS AND QUERY
 $facility_args = [
   'post_type' => 'facility',
