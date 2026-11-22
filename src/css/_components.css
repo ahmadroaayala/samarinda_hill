@@ -52,7 +52,7 @@
     @apply self-start inline-flex items-center py-1 px-2 gap-2 rounded-sm border border-transparent;
 
     > .label {
-      @apply font-medium text-xs;
+      @apply text-xs;
     }
 
     > .icon {
@@ -61,6 +61,10 @@
 
     &.badge--neutral {
       @apply text-on-surface bg-surface-container border-surface-container;
+
+      &.badge--inverse {
+        @apply text-surface-container bg-on-surface border-on-surface;
+      }
     }
 
     &.badge--primary {
