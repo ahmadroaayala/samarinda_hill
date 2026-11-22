@@ -6,6 +6,8 @@ use KarsaStart\Helpers;
  * @package KarsaStart
  */
 
+
+
 $cluster_query = new WP_Query([
   'post_type' => 'cluster',
   'post_status' => 'publish',
@@ -20,11 +22,8 @@ $unit_query = new WP_Query(
     'post_type' => 'unit',
     'post_status' => 'publish',
     'posts_per_page' => -1,
-    'meta_key' => 'price',
-    'orderby' => [
-      'meta_value_num' => 'ASC',
-      'title' => 'ASC',
-    ],
+    'orderby' => 'title',
+    'order' => 'ASC',
     'no_found_rows' => true,
     'meta_query' => [
       [
@@ -39,23 +38,32 @@ $unit_query = new WP_Query(
 $facility_query = new WP_Query([
   'post_type' => 'facility',
   'post_status' => 'publish',
-  'posts_per_page' => -1,
+  'posts_per_page' => 3,
   'orderby' => 'title',
   'order' => 'ASC',
   'no_found_rows' => true,
 ]);
 
-if (!empty($cluster_query->posts)) {
-  update_post_thumbnail_cache($cluster_query);
+// SET CACHE
+$queries = [$cluster_query, $unit_query, $facility_query];
+foreach ($queries as $query) {
+  if (!empty($query->posts)) {
+    update_post_thumbnail_cache($query);
+  }
 }
 
-if (!empty($unit_query->posts)) {
-  update_post_thumbnail_cache($unit_query);
-}
-
+// NORMALIZATION
+// Hero normalization
 $normalize_hero_items = static function (array $unit_ids): array {
-  $fallback_image = Helpers::get_image_placeholder_url('fallback-2-undraw');
+  usort($unit_ids, static function (int $a, int $b): int {
+    $price_a = (int) (get_field('price', $a) ?: PHP_INT_MAX);
+    $price_b = (int) (get_field('price', $b) ?: PHP_INT_MAX);
+
+    return $price_a <=> $price_b;
+  });
+
   $items = [];
+  $fallback_image = Helpers::get_image_placeholder_url('fallback-2-undraw');
 
   foreach ($unit_ids as $unit_id) {
     $raw_cluster = get_field('parent_cluster', $unit_id);
@@ -83,17 +91,48 @@ $normalize_hero_items = static function (array $unit_ids): array {
 
   return array_values($items);
 };
+// Facility normalization
+$normalize_facility_items = static function (array $facility_ids): array {
+  $items = [];
+  $fallback_image = Helpers::get_image_placeholder_url('fallback-2-undraw');
 
+  foreach ($facility_ids as $facility_id) {
+    $items[] = [
+      'post_url' => get_the_permalink($facility_id),
+      'thumbnail_url' => get_the_post_thumbnail_url($facility_id, 'large') ?: $fallback_image,
+      'title' => get_the_title($facility_id),
+      'excerpt' => get_the_excerpt($facility_id)
+    ];
+  }
+
+  return $items;
+};
+
+// DATA ASSIGNMENT
+// Hero 
 $unit_ids = wp_list_pluck($unit_query->posts, 'ID');
 $hero_items = $normalize_hero_items($unit_ids);
+// Facility
+$facility_ids = wp_list_pluck($facility_query->posts, 'ID');
+$facility_items = $normalize_facility_items($facility_ids);
 
 get_header();
 ?>
 
-<!-- HERO -->
+<!-- HERO MODULE -->
 <?php
 Helpers::module('hero-main', [
   'items' => $hero_items
+]);
+?>
+
+<!-- FACILITY MODULE -->
+<?php
+Helpers::module('facility-showcase', [
+  'archive_url' => get_post_type_archive_link('facility'),
+  'archive_url_label' => __('Lihat semua fasilitas', 'karsa_start'),
+  'title' => __('Fasilitas', 'karsa_start'),
+  'items' => $facility_items
 ]);
 ?>
 
