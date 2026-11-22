@@ -28,8 +28,9 @@ $cluster_map = array_map(
 );
 
 ?>
-<section class="relative min-h-[80vh] py-8 md:py-12 flex flex-col overflow-hidden"
-  x-data='{
+<section
+  class="relative min-h-[80vh] py-8 md:py-12 flex flex-col overflow-hidden"
+  x-data='{ // for hero bg
     clusterMap: <?= htmlspecialchars(wp_json_encode($cluster_map), ENT_QUOTES, 'UTF-8') ?>,
     index: 0,
     get activeCluster() {
@@ -43,6 +44,7 @@ $cluster_map = array_map(
     },
   }'>
 
+  <!-- render cluster bg and set initial state -->
   <?php $bg_i = 0;
   foreach ($unique_bgs as $cid => $bg): ?>
     <img
@@ -51,7 +53,7 @@ $cluster_map = array_map(
       :class="activeCluster === '<?= esc_js($cid) ?>' ? 'opacity-100' : 'opacity-0'"
       <?= $bg_i === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>
       decoding="async"
-      class="absolute inset-0 size-full object-cover object-center pointer-events-none">
+      class="absolute inset-0 size-full object-cover object-center pointer-events-none transition-opacity ease-out">
     <?php $bg_i++; endforeach; ?>
 
   <div
@@ -59,36 +61,40 @@ $cluster_map = array_map(
     class="absolute inset-0 bg-linear-to-t from-overlay/95 via-overlay/50 to-overlay/20 pointer-events-none">
   </div>
 
-  <div class="relative mt-auto z-10 container 
-  flex flex-col md:flex-row
-  md:items-end
-  gap-8">
-    <div class="">
-      <div class="flex flex-col gap-2 ">
-        <h1 class=" text-white text-4xl md:text-5xl/tighter">Ruang Tumbuh Nyaman untuk Setiap Fase Keluarga</h1>
-        <p class="text-white/80">
-          Menyatukan hunian tropis kontemporer dengan taman tematik, jalur jogging track, dan sistem keamanan satu pintu
-          24 jam dalam satu kawasan terpadu.
-        </p>
-      </div>
+  <div
+    class="relative z-10 
+    mt-auto 
+    container 
+    flex flex-col md:flex-row
+    md:items-center
+    gap-8
+    pt-20">
+
+    <div class="flex flex-col gap-2">
+      <h1 class=" text-white text-4xl md:text-5xl">Ruang Tumbuh Nyaman untuk Setiap Fase Keluarga</h1>
+      <p class="text-white/80">
+        Menyatukan hunian tropis kontemporer dengan taman tematik, jalur jogging track, dan sistem keamanan satu pintu
+        24 jam dalam satu kawasan terpadu.
+      </p>
     </div>
 
     <div>
-      <?php foreach ($items as $i => $item):
-        ?>
+      <!-- render unit and set initial state -->
+      <?php foreach ($items as $i => $item): ?>
         <div
           x-show="index === <?= (int) $i ?>"
+          x-on:click="next()"
           <?= $i > 0 ? 'style="display: none;"' : '' ?>
-          class=" flex justify-center">
+          class="flex justify-center">
 
-          <article class="bg-surface-transparent max-w-72 mx-auto
-         flex flex-col gap-4">
+          <article
+            class="bg-surface-transparent flex flex-col gap-4">
             <img
-              class="aspect-video object-cover rounded-2xl"
+              class="aspect-4/3 object-cover rounded-2xl"
               src="<?= esc_url(get_the_post_thumbnail_url($item['id'])) ?>"
               alt="<?= esc_attr(get_the_title($item['id'])) ?>">
 
-            <div class="">
+            <div x-on:click.stop>
               <div class="flex gap-4 items-center justify-center">
                 <button
                   type="button"
