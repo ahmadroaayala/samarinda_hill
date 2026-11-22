@@ -91,6 +91,22 @@ $normalize_hero_items = static function (array $unit_ids): array {
 
   return array_values($items);
 };
+// Cluster normalization
+$normalize_cluster_items = static function (array $cluster_ids, array $unit_ids): array {
+  $fallback_image = Helpers::get_image_placeholder_url('fallback-2-undraw');
+  $items = [];
+
+  foreach ($cluster_ids as $cluster_id) {
+    if (!isset($items[$cluster_id])) {
+      $items[$cluster_id] = [
+        'title' => get_the_title($cluster_id)
+      ];
+    }
+
+  }
+
+  return $items;
+};
 // Facility normalization
 $normalize_facility_items = static function (array $facility_ids): array {
   $items = [];
@@ -112,6 +128,10 @@ $normalize_facility_items = static function (array $facility_ids): array {
 // Hero 
 $unit_ids = wp_list_pluck($unit_query->posts, 'ID');
 $hero_items = $normalize_hero_items($unit_ids);
+// Cluster
+$cluster_ids = wp_list_pluck($cluster_query->posts, 'ID');
+$cluster_items = $normalize_cluster_items($cluster_ids, $unit_ids);
+dump($cluster_items);
 // Facility
 $facility_ids = wp_list_pluck($facility_query->posts, 'ID');
 $facility_items = $normalize_facility_items($facility_ids);
