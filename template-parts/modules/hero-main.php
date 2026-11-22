@@ -34,7 +34,7 @@ $cluster_map = array_column($slides, 'cluster_id');
 ?>
 
 <section
-  class="relative min-h-[80vh] py-8 md:py-12 flex flex-col overflow-hidden"
+  class="relative min-h-[80vh] py-20 flex flex-col overflow-hidden"
   x-data='{
   clusterMap: <?= htmlspecialchars(wp_json_encode($cluster_map), ENT_QUOTES, 'UTF-8') ?>,
   index: 0,
@@ -63,27 +63,26 @@ $cluster_map = array_column($slides, 'cluster_id');
 
   <div
     aria-hidden="true"
-    class="absolute inset-0 bg-linear-to-t from-overlay/95 via-overlay/50 to-overlay/20 pointer-events-none">
+    class="absolute inset-0 bg-linear-to-r from-overlay/80 via-overlay/50 to-overlay/20 pointer-events-none">
   </div>
 
   <div
     class="relative z-10 
-    mt-auto 
     container 
     grid
     md:grid-cols-12
     gap-8
     ">
 
-    <div class="md:col-span-7 self-end flex flex-col gap-2">
-      <h1 class="text-white text-4xl md:text-5xl">Ruang Tumbuh Nyaman untuk Setiap Fase Keluarga</h1>
+    <div class="md:col-span-7 self-center flex flex-col gap-2">
+      <h1 class="text-white max-w-lg text-4xl md:text-5xl">Ruang Tumbuh Nyaman untuk Setiap Fase Keluarga</h1>
       <p class="text-white/80 leading-relaxed">
         Menyatukan hunian tropis kontemporer dengan taman tematik, jalur jogging track, dan sistem keamanan satu pintu
         24 jam dalam satu kawasan terpadu.
       </p>
     </div>
 
-    <div class="md:col-span-5 justify-self-center justify-end flex flex-col gap-4">
+    <div class="md:col-span-5 items-center flex flex-col gap-4">
       <div>
         <?php foreach ($slides as $i => $slide):
           $unit = $slide['unit'];
@@ -98,15 +97,21 @@ $cluster_map = array_column($slides, 'cluster_id');
           <article
             x-show="index === <?= (int) $i ?>"
             <?= $i > 0 ? 'style="display: none;"' : '' ?>
-            class="w-full rounded-2xl shadow-2xl 
-            grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2
+            class="w-full rounded-4xl 
+            max-w-72
+            grid 
             gap-4
-            items-center">
+            items-center
+            p-4
+            border border-white/20
+            bg-white/10
+            backdrop-blur-md
+            ">
             <!-- Thumbnail Unit + Badge Cluster -->
             <div
               x-on:click="next()"
               title="<?= esc_attr__('Klik untuk unit berikutnya', 'karsa_start') ?>"
-              class="group relative aspect-video rounded-2xl overflow-hidden cursor-pointer bg-on-surface">
+              class="group relative aspect-4/3 rounded-2xl overflow-hidden cursor-pointer bg-on-surface">
               <img
                 class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 src="<?= esc_url($unit_thumb) ?>"
@@ -123,7 +128,7 @@ $cluster_map = array_column($slides, 'cluster_id');
               <?php endif; ?>
             </div>
 
-            <div class="px-1 pb-1 flex flex-col gap-4">
+            <div class="flex flex-col gap-4">
               <div class="flex flex-col gap-1">
                 <h2 class=" text-white text-lg/snug">
                   <?= esc_html($unit_title) ?>
@@ -159,6 +164,7 @@ $cluster_map = array_column($slides, 'cluster_id');
           size-9 
           rounded-full 
           bg-white/10 hover:bg-white/20 
+            backdrop-blur-md
           border border-white/20 
           transition">
 
@@ -183,6 +189,7 @@ $cluster_map = array_column($slides, 'cluster_id');
           size-9 
           rounded-full 
           bg-white/10 hover:bg-white/20 
+            backdrop-blur-md
           border border-white/20 
           transition">
           <i data-lucide="chevron-right" class="size-4 text-white"></i>
