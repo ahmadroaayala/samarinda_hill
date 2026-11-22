@@ -20,8 +20,11 @@ $unit_query = new WP_Query(
     'post_type' => 'unit',
     'post_status' => 'publish',
     'posts_per_page' => -1,
-    'orderby' => 'title',
-    'order' => 'ASC',
+    'meta_key' => 'price',
+    'orderby' => [
+      'meta_value_num' => 'ASC',
+      'title' => 'ASC',
+    ],
     'no_found_rows' => true,
     'meta_query' => [
       [
