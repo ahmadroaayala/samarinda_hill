@@ -51,6 +51,10 @@
   .badge {
     @apply self-start inline-flex items-center py-1 px-2 gap-2 rounded-sm border border-transparent;
 
+    &:hover {
+      @apply opacity-90;
+    }
+
     > .label {
       @apply text-xs;
     }
