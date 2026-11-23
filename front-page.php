@@ -71,6 +71,13 @@ Helpers::module('hero-main', [
 ]);
 ?>
 
+<!-- CLUSTER MODULE -->
+<?php
+Helpers::module('cluster-showcase', [
+  'items' => $cluster_items
+]);
+?>
+
 <!-- FACILITY MODULE -->
 <?php
 Helpers::module('facility-showcase', [
