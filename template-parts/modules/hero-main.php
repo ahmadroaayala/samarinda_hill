@@ -1,4 +1,6 @@
 <?php
+
+use KarsaStart\Core\Format;
 /**
  * Module: Hero Main
  * @package KarsaStart
@@ -70,7 +72,7 @@ $cluster_map = array_column($slides, 'cluster_id');
     class="relative z-10 container grid md:grid-cols-12 gap-8
     ">
 
-    <div class="md:col-span-7 self-center flex flex-col gap-2">
+    <div class="md:col-span-7 self-end flex flex-col gap-2">
       <h1 class="text-white max-w-lg text-4xl md:text-5xl/tighter">Ruang Tumbuh Nyaman untuk Setiap Fase Keluarga</h1>
       <p class="text-white/80 leading-relaxed md:leading-loose">
         Menyatukan hunian tropis kontemporer dengan taman tematik, jalur jogging track, dan sistem keamanan satu pintu
@@ -82,10 +84,6 @@ $cluster_map = array_column($slides, 'cluster_id');
       <div>
         <?php foreach ($slides as $i => $slide):
           $unit = $slide['unit'];
-
-          $price_label = $unit['price'] > 0
-            ? 'Rp ' . number_format($unit['price'] / 1_000_000, 0, ',', '.') . ' Juta'
-            : '';
           ?>
           <article
             x-show="index === <?= (int) $i ?>"
@@ -117,11 +115,11 @@ $cluster_map = array_column($slides, 'cluster_id');
                   <?= esc_html($unit['title']) ?>
                 </h2>
 
-                <?php if ($price_label !== ''): ?>
-                  <p class="text-sm text-on-surface-subtle">
-                    <?= esc_html__('Mulai ', 'karsa_start') . esc_html($price_label) ?>
-                  </p>
-                <?php endif; ?>
+
+                <p class="text-sm text-on-surface-subtle">
+                  <?= esc_html__('Mulai ', 'karsa_start') . Format::rupiah($unit['price']) ?>
+                </p>
+
               </div>
 
               <a href="<?= esc_url($unit['post_url']) ?>" class="btn btn--primary w-full">
