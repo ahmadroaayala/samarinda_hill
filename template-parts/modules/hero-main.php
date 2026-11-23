@@ -53,7 +53,7 @@ $cluster_map = array_column($slides, 'cluster_id');
   <?php
   foreach ($items as $c_id => $cluster): ?>
     <img
-      src="<?= esc_url($cluster['thumb_url']) ?>"
+      src="<?= esc_url($cluster['thumbnail_url']) ?>"
       alt="<?= esc_attr($cluster['title']) ?>"
       :class="activeCluster === '<?= esc_js((string) $cluster['id']) ?>' ? 'opacity-100' : 'opacity-0'"
       <?= $c_id === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>
@@ -97,7 +97,7 @@ $cluster_map = array_column($slides, 'cluster_id');
               class="group relative aspect-4/3 rounded-lg overflow-hidden cursor-pointer bg-on-surface">
               <img
                 class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                src="<?= esc_url($unit['thumb_url']) ?>"
+                src="<?= esc_url($unit['thumbnail_url']) ?>"
                 alt="<?= esc_attr($unit['title']) ?>">
 
               <?php if ($slide['cluster_title'] !== ''): ?>
@@ -124,7 +124,7 @@ $cluster_map = array_column($slides, 'cluster_id');
                 <?php endif; ?>
               </div>
 
-              <a href="<?= esc_url($unit['url']) ?>" class="btn btn--primary w-full">
+              <a href="<?= esc_url($unit['post_url']) ?>" class="btn btn--primary w-full">
                 <span class="label">
                   <?= esc_html__('Lihat Detail Unit', 'karsa_start') ?>
                 </span>
