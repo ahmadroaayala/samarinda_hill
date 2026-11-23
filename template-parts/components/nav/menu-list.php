@@ -4,8 +4,8 @@
  * @package KarsaStart
  */
 
-use KarsaStart\Helpers;
-use KarsaStart\Taxonomy;
+use KarsaStart\Core\Helpers;
+use KarsaStart\Core\Taxonomy;
 
 $items = $args['items'] ?? [];
 $is_mobile = $args['is_mobile'] ?? false;

@@ -4,7 +4,7 @@
  * @package KarsaStart
  */
 
-use KarsaStart\Helpers;
+use KarsaStart\Core\Helpers;
 $nav_items = $args['nav_items'] ?? [];
 
 ?>

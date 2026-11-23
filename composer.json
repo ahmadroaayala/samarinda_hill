@@ -12,11 +12,11 @@
   ],
   "autoload": {
     "psr-4": {
-      "TailPress\\": "inc/core/",
-      "KarsaStart\\": "inc/core/"
+      "KarsaStar\\Core\\": "inc/core/",
+      "KarsaStart\\Project\\": "inc/project/"
     },
     "files": [
-      "inc/core/class-tgm-plugin-activation.php"
+      "inc/core/TGM_PluginActivation.php"
     ]
   },
   "require": {

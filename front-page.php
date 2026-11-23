@@ -1,12 +1,10 @@
 <?php
-
-use KarsaStart\Helpers;
 /**
  * View: Root Front Page
  * @package KarsaStart
  */
 
-
+use KarsaStart\Core\Helpers;
 
 $cluster_query = new WP_Query([
   'post_type' => 'cluster',

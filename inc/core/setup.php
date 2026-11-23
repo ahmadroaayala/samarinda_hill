@@ -8,8 +8,8 @@ if (!defined('ABSPATH')) {
   exit;
 }
 
-function karsa_register_required_plugins()
-{
+// Autoload plugin
+add_action('tgmpa_register', function () {
   $plugins = [
     [
       'name' => 'Advanced Custom Fields',
@@ -31,8 +31,7 @@ function karsa_register_required_plugins()
   ];
 
   tgmpa($plugins, $config);
-}
-add_action('tgmpa_register', 'karsa_register_required_plugins');
+});
 
 function tailpress_setup(): TailPress\Framework\Theme
 {

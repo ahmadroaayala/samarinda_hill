@@ -4,7 +4,7 @@
  * @package KarsaStart
  */
 
-use KarsaStart\Helpers;
+use KarsaStart\Core\Helpers;
 
 $wrapper_class = $args['wrapper_class'] ?? '';
 $title = $args['title'] ?? 'Card Title';

@@ -1,5 +1,5 @@
 <?php
-namespace KarsaStart;
+namespace KarsaStart\Core;
 
 class Breadcrumb
 {
