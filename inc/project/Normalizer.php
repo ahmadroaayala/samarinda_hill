@@ -61,7 +61,16 @@ class Normalizer
       }
     }
 
+    usort($unit_ids, static function (int $a, int $b): int {
+      $price_a = (int) (get_field('price', $a) ?: PHP_INT_MAX);
+      $price_b = (int) (get_field('price', $b) ?: PHP_INT_MAX);
+
+      return $price_a <=> $price_b;
+    });
+
     foreach ($unit_ids as $unit_id) {
+
+
       $raw_cluster = get_field('parent_cluster', $unit_id);
       $cluster_id = $raw_cluster instanceof \WP_Post ? $raw_cluster->ID : absint($raw_cluster);
 
@@ -74,7 +83,7 @@ class Normalizer
       ];
     }
 
-    return $items;
+    return array_values($items);
   }
 
   public static function facility_items(array $facility_ids): array
@@ -91,6 +100,6 @@ class Normalizer
       ];
     }
 
-    return $items;
+    return array_values($items);
   }
 }
