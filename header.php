@@ -46,11 +46,19 @@ $nav_items = [
           </a>
         </div>
 
+        <nav class="hidden md:flex items-center gap-4">
+          <?php foreach ($nav_items as $item): ?>
+            <a href="<?= esc_url($item['url']) ?>">
+              <?= esc_html($item['label']) ?>
+            </a>
+          <?php endforeach ?>
+        </nav>
+
         <!-- MOBILE NAV -->
         <div
-          x-data="{ open: true }"
+          x-data="{ open: false }"
           @click.outside="open = false"
-          class="relative flex items-center">
+          class="relative flex md:hidden items-center">
           <!-- TRIGGER -->
           <button @click="open = !open" type="button" class="cursor-pointer">
             <i x-show="!open" data-lucide="menu"></i>
