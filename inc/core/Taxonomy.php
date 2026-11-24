@@ -131,5 +131,22 @@ class Taxonomy
     return $options;
   }
 
+  public static function sort_terms_by_hierarchy(int $id, string $tax, string $direction = 'top_down'): array
+  {
+    $terms = [];
+
+
+    $raw_terms = get_the_terms($id, $tax);
+
+    foreach ($raw_terms as $term) {
+      dump($term);
+    }
+
+    if ($direction == 'top_down') {
+    } else {
+      return array_reverse($terms);
+    }
+    return $terms;
+  }
 
 }
