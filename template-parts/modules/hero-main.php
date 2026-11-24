@@ -8,9 +8,7 @@ use KarsaStart\Core\Format;
 
 $items = $args['items'] ?? [];
 
-if (empty($items)) {
-  return;
-}
+
 
 $slides = [];
 $slides = [];
@@ -36,7 +34,7 @@ $cluster_map = array_column($slides, 'cluster_id');
 ?>
 
 <section
-  class="relative min-h-[80vh] py-20 flex flex-col overflow-hidden"
+  class="relative min-h-[80vh] py-20 flex flex-col overflow-hidden justify-end"
   x-data='{
   clusterMap: <?= htmlspecialchars(wp_json_encode($cluster_map), ENT_QUOTES, 'UTF-8') ?>,
   index: 0,
@@ -68,9 +66,7 @@ $cluster_map = array_column($slides, 'cluster_id');
     class="absolute inset-0 bg-linear-to-r from-overlay/80 via-overlay/50 to-overlay/20 pointer-events-none">
   </div>
 
-  <div
-    class="relative z-10 container grid md:grid-cols-12 gap-8
-    ">
+  <div class="relative z-10 container grid md:grid-cols-12 md:gap-8">
 
     <div class="md:col-span-7 self-end flex flex-col gap-2">
       <h1 class="text-white max-w-lg text-4xl md:text-5xl/tighter">Ruang Tumbuh Nyaman untuk Setiap Fase Keluarga</h1>
@@ -81,85 +77,88 @@ $cluster_map = array_column($slides, 'cluster_id');
     </div>
 
     <div class="md:col-span-5 items-center flex flex-col gap-4">
-      <div>
-        <?php foreach ($slides as $i => $slide):
-          $unit = $slide['unit'];
-          ?>
-          <article
-            x-show="index === <?= (int) $i ?>"
-            <?= $i > 0 ? 'style="display: none;"' : '' ?>
-            class="w-full rounded-2xl max-w-72 grid gap-4 items-center bg-surface-bright p-4">
-            <div
-              x-on:click="next()"
-              title="<?= esc_attr__('Klik untuk unit berikutnya', 'karsa_start') ?>"
-              class="group relative aspect-4/3 rounded-lg overflow-hidden cursor-pointer bg-on-surface">
-              <img
-                class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                src="<?= esc_url($unit['thumbnail_url']) ?>"
-                alt="<?= esc_attr($unit['title']) ?>">
+      <?php if (!empty($items)): ?>
+        <div>
+          <?php foreach ($slides as $i => $slide):
+            $unit = $slide['unit'];
+            ?>
+            <article
+              x-show="index === <?= (int) $i ?>"
+              <?= $i > 0 ? 'style="display: none;"' : '' ?>
+              class="w-full rounded-2xl max-w-72 grid gap-4 items-center bg-surface-bright p-4">
+              <div
+                x-on:click="next()"
+                title="<?= esc_attr__('Klik untuk unit berikutnya', 'karsa_start') ?>"
+                class="group relative aspect-4/3 rounded-lg overflow-hidden cursor-pointer bg-on-surface">
+                <img
+                  class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  src="<?= esc_url($unit['thumbnail_url']) ?>"
+                  alt="<?= esc_attr($unit['title']) ?>">
 
-              <?php if ($slide['cluster_title'] !== ''): ?>
-                <div class="absolute top-2 left-2">
-                  <span class="badge badge--neutral">
-                    <span class="label">
-                      <?= esc_html($slide['cluster_title']) ?>
+                <?php if ($slide['cluster_title'] !== ''): ?>
+                  <div class="absolute top-2 left-2">
+                    <span class="badge badge--neutral">
+                      <span class="label">
+                        <?= esc_html($slide['cluster_title']) ?>
+                      </span>
                     </span>
-                  </span>
-                </div>
-              <?php endif; ?>
-            </div>
-
-            <div class="flex flex-col gap-4 ">
-              <div class="flex flex-col gap-1">
-                <h2 class=" text-on-surface text-lg/snug">
-                  <?= esc_html($unit['title']) ?>
-                </h2>
-
-
-                <p class="text-sm text-on-surface-subtle">
-                  <?= esc_html__('Mulai ', 'karsa_start') . Format::rupiah($unit['price']) ?>
-                </p>
-
+                  </div>
+                <?php endif; ?>
               </div>
 
-              <a href="<?= esc_url($unit['post_url']) ?>" class="btn btn--primary w-full">
-                <span class="label">
-                  <?= esc_html__('Lihat Detail Unit', 'karsa_start') ?>
-                </span>
-              </a>
-            </div>
-          </article>
-        <?php endforeach; ?>
-        </di>
-      </div>
+              <div class="flex flex-col gap-4 ">
+                <div class="flex flex-col gap-1">
+                  <h2 class=" text-on-surface text-lg/snug">
+                    <?= esc_html($unit['title']) ?>
+                  </h2>
 
-      <div class="flex gap-4 items-center justify-center">
-        <button
-          type="button"
-          x-on:click="prev()"
-          aria-label="<?= esc_attr__('Unit sebelumnya', 'karsa_start') ?>"
-          class="cursor-pointer inline-flex items-center justify-center size-9 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 transition-colors">
 
-          <i data-lucide="chevron-left" class="size-4 text-white"></i>
-        </button>
+                  <p class="text-sm text-on-surface-subtle">
+                    <?= esc_html__('Mulai ', 'karsa_start') . Format::rupiah($unit['price']) ?>
+                  </p>
 
-        <div
-          class="min-w-12 inline-flex items-center justify-center gap-2 text-sm font-medium tabular-nums">
-          <span x-text="index + 1" class="text-white">1</span>
-          <span class="text-white/40">/</span>
-          <span class="text-white/60">
-            <?= esc_html(count($slides)) ?>
-          </span>
+                </div>
+
+                <a href="<?= esc_url($unit['post_url']) ?>" class="btn btn--primary w-full">
+                  <span class="label">
+                    <?= esc_html__('Lihat Detail Unit', 'karsa_start') ?>
+                  </span>
+                </a>
+              </div>
+            </article>
+          <?php endforeach; ?>
+          </di>
         </div>
 
-        <button
-          type="button"
-          x-on:click="next()"
-          aria-label="<?= esc_attr__('Unit berikutnya', 'karsa_start') ?>"
-          class="cursor-pointer inline-flex items-center justify-center size-9 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 transition-colors">
-          <i data-lucide="chevron-right" class="size-4 text-white"></i>
-        </button>
-      </div>
+        <div class="flex gap-4 items-center justify-center">
+          <button
+            type="button"
+            x-on:click="prev()"
+            aria-label="<?= esc_attr__('Unit sebelumnya', 'karsa_start') ?>"
+            class="cursor-pointer inline-flex items-center justify-center size-9 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 transition-colors">
+
+            <i data-lucide="chevron-left" class="size-4 text-white"></i>
+          </button>
+
+          <div
+            class="min-w-12 inline-flex items-center justify-center gap-2 text-sm font-medium tabular-nums">
+            <span x-text="index + 1" class="text-white">1</span>
+            <span class="text-white/40">/</span>
+            <span class="text-white/60">
+              <?= esc_html(count($slides)) ?>
+            </span>
+          </div>
+
+          <button
+            type="button"
+            x-on:click="next()"
+            aria-label="<?= esc_attr__('Unit berikutnya', 'karsa_start') ?>"
+            class="cursor-pointer inline-flex items-center justify-center size-9 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 transition-colors">
+            <i data-lucide="chevron-right" class="size-4 text-white"></i>
+          </button>
+        </div>
+
+      <?php endif ?>
 
     </div>
 </section>
