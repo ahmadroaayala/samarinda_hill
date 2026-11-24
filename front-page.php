@@ -51,10 +51,8 @@ foreach ([$cluster_query, $unit_query, $facility_query] as $query) {
 }
 
 // DATA ASSIGNMENT
-// Hero 
+// Hero and Cluster
 $unit_ids = wp_list_pluck($unit_query->posts, 'ID');
-$hero_items = Normalizer::hero_items($unit_ids);
-// Cluster
 $cluster_ids = wp_list_pluck($cluster_query->posts, 'ID');
 $cluster_items = Normalizer::units_by_cluster($cluster_ids, $unit_ids);
 // Facility
@@ -67,7 +65,7 @@ get_header();
 <!-- HERO MODULE -->
 <?php
 Helpers::module('hero-main', [
-  'items' => $hero_items
+  'items' => $cluster_items
 ]);
 ?>
 
