@@ -42,7 +42,6 @@ if (is_array($custom_items) && !empty($custom_items)) {
 
 $last_index = count($items) - 1;
 
-
 ?>
 
 <nav aria-label="Breadcrumb" class="<?= esc_attr($wrapper_classes) ?>">
@@ -57,7 +56,7 @@ $last_index = count($items) - 1;
             <?= esc_html($item['label']) ?>
           </a>
         <?php else: ?>
-          <span class="font-medium text-on-surface-variant">
+          <span class="font-medium text-primary">
             <?= esc_html($item['label']) ?>
           </span>
         <?php endif; ?>
