@@ -66,7 +66,7 @@ $cluster_map = array_column($slides, 'cluster_id');
     class="absolute inset-0 bg-linear-to-r from-overlay/80 via-overlay/50 to-overlay/20 pointer-events-none">
   </div>
 
-  <div class="relative z-10 container grid md:grid-cols-12 md:gap-8">
+  <div class="relative z-10 container grid md:grid-cols-12 gap-8">
 
     <div class="md:col-span-7 self-end flex flex-col gap-2">
       <h1 class="text-white max-w-lg text-4xl md:text-5xl/tighter">Ruang Tumbuh Nyaman untuk Setiap Fase Keluarga</h1>
