@@ -71,14 +71,17 @@ Helpers::module('hero-main', [
 
 <!-- CLUSTER MODULE -->
 <?php
-Helpers::module('cluster-showcase', [
+Helpers::module('showcase-cluster', [
+  'archive_url' => get_post_type_archive_link('cluster'),
+  'archive_url_label' => __('Lihat semua cluster', 'karsa_start'),
+  'title' => __('Cluster Hunian', 'karsa_start'),
   'items' => $cluster_items
 ]);
 ?>
 
 <!-- FACILITY MODULE -->
 <?php
-Helpers::module('facility-showcase', [
+Helpers::module('showcase-facility', [
   'archive_url' => get_post_type_archive_link('facility'),
   'archive_url_label' => __('Lihat semua fasilitas', 'karsa_start'),
   'title' => __('Fasilitas', 'karsa_start'),
