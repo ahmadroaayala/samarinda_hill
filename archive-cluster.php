@@ -38,14 +38,13 @@ get_header();
         'items' => $breadcrumb_items
       ]) ?>
 
-      <div>
+      <div class="flex flex-col gap-8">
         <h1>Cluster</h1>
 
         <div>
           <?php foreach ($cluster_items as $cluster):
             $prices = array_filter(array_map('intval', array_column($cluster['units'] ?? [], 'price')));
             $min_price = !empty($prices) ? min($prices) : 0;
-
             ?>
 
             <article>
