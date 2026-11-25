@@ -1,6 +1,8 @@
 <?php
 namespace KarsaStart\Core;
 
+use WP_Error;
+
 class Taxonomy
 {
   public static function get_active_tree(string $taxonomy): array
@@ -131,38 +133,29 @@ class Taxonomy
     return $options;
   }
 
-  public static function sort_terms_by_hierarchy(int $id, string $tax, string $hierachy = 'top_down'): array
+  public static function sort_terms_by_hierarchy(array|false|WP_Error $terms, string $hierarchy = 'top_down'): array
   {
-    $terms = [];
-    $raw_terms = get_the_terms($id, $tax);
 
-    $ancestor_id = null;
-    $children_id = [];
-
-    foreach ($raw_terms as $term) {
-      if ($term->parent !== 0) {
-        $children_id[] = $term->term_id;
-      } else {
-        $ancestor_id = $term->term_id;
-        $terms[] = $term;
-      }
+    if (empty($terms) || is_wp_error($terms)) {
+      return [];
     }
 
-    foreach ($children_id as $child_id) {
-      foreach ($raw_terms as $term) {
-        if ($term->parent == $ancestor_id) {
+    $paths = [];
+    foreach ($terms as $term) {
+      $ancestors = array_reverse(get_ancestors($term->term_id, $term->taxonomy, 'taxonomy'));
+      $ancestors[] = $term->term_id;
 
-        }
-      }
-
+      $paths[$term->term_id] = array_map(
+        static fn(int $id): int => $id,
+        $ancestors
+      );
     }
 
+    usort($terms, static function (\WP_Term $a, \WP_Term $b) use ($paths, $hierarchy): int {
+      $comparison = $paths[$a->term_id] <=> $paths[$b->term_id];
+      return $hierarchy === 'top_down' ? $comparison : -$comparison;
+    });
 
-    if ($hierachy == 'top_down') {
-    } else {
-      return array_reverse($terms);
-    }
     return $terms;
   }
-
 }
