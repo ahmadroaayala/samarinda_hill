@@ -6,10 +6,14 @@ use KarsaStart\Core\Taxonomy;
 
 class Normalizer
 {
+  private static function fallback_image(): string
+  {
+    static $url = null;
+    return $url ??= Helpers::get_image_placeholder_url('fallback-2-undraw');
+  }
 
   public static function units_by_cluster(array $cluster_ids, array $unit_ids): array
   {
-    $fallback_image = Helpers::get_image_placeholder_url('fallback-2-undraw');
     $items = [];
 
     foreach ($cluster_ids as $cluster_id) {
@@ -21,7 +25,7 @@ class Normalizer
           'id' => $cluster_id,
           'title' => get_the_title($cluster_id),
           'post_url' => get_the_permalink($cluster_id),
-          'thumbnail_url' => get_the_post_thumbnail_url($cluster_id, 'full') ?: $fallback_image,
+          'thumbnail_url' => get_the_post_thumbnail_url($cluster_id, 'full') ?: self::fallback_image(),
           'excerpt' => get_the_excerpt($cluster_id),
           'cluster_facility' => self::facility_items($cluster_facility),
           'location' => implode(
@@ -50,7 +54,7 @@ class Normalizer
         'id' => $unit_id,
         'title' => get_the_title($unit_id),
         'post_url' => get_the_permalink($unit_id),
-        'thumbnail_url' => get_the_post_thumbnail_url($unit_id, 'large') ?: $fallback_image,
+        'thumbnail_url' => get_the_post_thumbnail_url($unit_id, 'large') ?: self::fallback_image(),
         'price' => get_field('price', $unit_id)
       ];
     }
@@ -61,19 +65,19 @@ class Normalizer
   public static function facility_items(array $facility_ids): array
   {
     $items = [];
-    $fallback_image = Helpers::get_image_placeholder_url('fallback-2-undraw');
+
 
     foreach ($facility_ids as $facility_id) {
       $items[] = [
         'id' => $facility_id,
         'post_url' => get_the_permalink($facility_id),
-        'thumbnail_url' => get_the_post_thumbnail_url($facility_id, 'large') ?: $fallback_image,
+        'thumbnail_url' => get_the_post_thumbnail_url($facility_id, 'large') ?: self::fallback_image(),
         'title' => get_the_title($facility_id),
         'excerpt' => get_the_excerpt($facility_id)
       ];
     }
 
-    return array_values($items);
+    return $items;
   }
 
 
