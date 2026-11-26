@@ -5,7 +5,6 @@
  */
 
 use KarsaStart\Core\Breadcrumb;
-use KarsaStart\Core\Format;
 use KarsaStart\Core\Helpers;
 use KarsaStart\Project\Normalizer;
 
@@ -32,13 +31,13 @@ get_header();
 
   <div class="container">
 
-    <div class="flex flex-col gap-4 sm:gap-6">
+    <div class="flex flex-col gap-6">
 
       <?php Helpers::component('breadcrumb', [
         'items' => $breadcrumb_items
       ]) ?>
 
-      <div class="flex flex-col gap-4 sm:gap-6">
+      <div class="flex flex-col gap-6">
         <h1>Cluster</h1>
 
         <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
