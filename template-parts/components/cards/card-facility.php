@@ -34,7 +34,7 @@ $excerpt = $args['excerpt'] ?? null;
 
   <div class="p-4 lg:p-6 flex flex-col gap-4">
     <div class="flex flex-col gap-2">
-      <h3 class="text-lg">
+      <h3 class="text-lg lg:text-xl">
         <?= esc_html($title) ?>
       </h3>
 
