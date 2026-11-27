@@ -8,31 +8,6 @@ if (!defined('ABSPATH')) {
   exit;
 }
 
-// Autoload plugin
-add_action('tgmpa_register', function () {
-  $plugins = [
-    [
-      'name' => 'Advanced Custom Fields',
-      'slug' => 'advanced-custom-fields',
-      'required' => true,
-    ],
-    [
-      'name' => 'ACF Galerie 4',
-      'slug' => 'acf-galerie-4',
-      'required' => true,
-    ],
-  ];
-
-  $config = [
-    'id' => 'karsa-start-tgmpa',
-    'has_notices' => true,
-    'dismissable' => true,
-    'is_automatic' => true,
-  ];
-
-  tgmpa($plugins, $config);
-});
-
 function tailpress_setup(): TailPress\Framework\Theme
 {
   return TailPress\Framework\Theme::instance()
