@@ -13,6 +13,7 @@ import {
   FileText,
   Lightbulb,
   List,
+  MapPin,
   Menu,
   MousePointerClick,
   Phone,
@@ -36,6 +37,7 @@ const initLucideIcons = () => {
       Lightbulb,
       Phone,
       FileText,
+      MapPin,
     },
   });
 };
