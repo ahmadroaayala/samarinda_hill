@@ -44,7 +44,7 @@ $last_index = count($items) - 1;
 
 ?>
 
-<nav aria-label="Breadcrumb" class="<?= esc_attr($wrapper_classes) ?>">
+<nav aria-label="Breadcrumb" class="px-2 <?= esc_attr($wrapper_classes) ?>">
 
   <ol class="flex flex-wrap items-center gap-1 text-xs text-on-surface-subtle">
     <?php foreach ($items as $index => $item):
