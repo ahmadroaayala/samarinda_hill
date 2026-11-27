@@ -28,7 +28,6 @@ $cluster_items = Normalizer::units_by_cluster($cluster_ids, $units->posts);
 get_header();
 ?>
 <div id="page" class="py-8 md:py-12 bg-surface-bright">
-
   <div class="container">
 
     <div class="flex flex-col gap-6">
@@ -58,7 +57,6 @@ get_header();
     </div>
 
   </div>
-
 </div>
 
 

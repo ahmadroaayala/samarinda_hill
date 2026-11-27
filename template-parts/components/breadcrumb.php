@@ -45,6 +45,7 @@ $last_index = count($items) - 1;
 ?>
 
 <nav aria-label="Breadcrumb" class="<?= esc_attr($wrapper_classes) ?>">
+
   <ol class="flex flex-wrap items-center gap-1 text-xs text-on-surface-subtle">
     <?php foreach ($items as $index => $item):
       $is_last = ($index === $last_index);
@@ -68,4 +69,5 @@ $last_index = count($items) - 1;
 
     <?php endforeach; ?>
   </ol>
+
 </nav>
