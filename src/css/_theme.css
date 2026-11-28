@@ -12,9 +12,9 @@
   --font-serif: "Lora", ui-serif, serif;
   --font-mono: "Geist Mono Variable", ui-monospace, monospace;
 
-  /* Overlay Color */
-  --color-overlay-light: var(--wp--preset--color--neutral-0);
-  --color-overlay-dark: var(--wp--preset--color--neutral-1000);
+  /* TRANSPARANT BASE */
+  --color-light: var(--wp--preset--color--neutral-0);
+  --color-dark: var(--wp--preset--color--neutral-1000);
 
   /* SURFACE */
   --color-surface-bright: var(--wp--preset--color--neutral-0);
