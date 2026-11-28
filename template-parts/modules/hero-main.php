@@ -63,14 +63,15 @@ $cluster_map = array_column($slides, 'cluster_id');
 
   <div
     aria-hidden="true"
-    class="absolute inset-0 bg-linear-to-r from-overlay/80 via-overlay/50 to-overlay/20 pointer-events-none">
+    class="absolute inset-0 bg-linear-to-b md:bg-linear-to-r from-dark/80 via-dark/50 to-dark/20 pointer-events-none">
   </div>
 
   <div class="relative z-10 container grid md:grid-cols-12 gap-8">
 
     <div class="md:col-span-7 self-end flex flex-col gap-2">
-      <h1 class="text-white max-w-lg text-4xl md:text-5xl/tighter">Ruang Tumbuh Nyaman untuk Setiap Fase Keluarga</h1>
-      <p class="text-white/80 leading-relaxed md:leading-loose">
+      <h1 class="font-serif text-light max-w-lg text-3xl sm:text-4xl lg:text-5xl">Ruang Tumbuh Nyaman untuk Setiap Fase
+        Keluarga</h1>
+      <p class="text-light/80">
         Menyatukan hunian tropis kontemporer dengan taman tematik, jalur jogging track, dan sistem keamanan satu pintu
         24 jam dalam satu kawasan terpadu.
       </p>
@@ -85,20 +86,21 @@ $cluster_map = array_column($slides, 'cluster_id');
             <article
               x-show="index === <?= (int) $i ?>"
               <?= $i > 0 ? 'style="display: none;"' : '' ?>
-              class="w-full rounded-2xl max-w-72 grid gap-4 items-center bg-surface-bright p-4">
+              class="w-full rounded-2xl max-w-72 grid gap-4 items-center bg-dark/20 backdrop-blur-md border border-light/20 p-4">
+
               <div
                 x-on:click="next()"
                 title="<?= esc_attr__('Klik untuk unit berikutnya', 'karsa_start') ?>"
                 class="group relative aspect-4/3 rounded-lg overflow-hidden cursor-pointer bg-on-surface">
                 <img
-                  class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  class="size-full object-cover transition-transform group-hover:scale-105"
                   src="<?= esc_url($unit['thumbnail_url']) ?>"
                   alt="<?= esc_attr($unit['title']) ?>">
 
                 <?php if ($slide['cluster_title'] !== ''): ?>
                   <div class="absolute top-2 left-2">
-                    <span class="badge badge--neutral">
-                      <span class="label">
+                    <span class="badge bg-dark/40 border border-light/20 backdrop-blur-md">
+                      <span class="label text-light">
                         <?= esc_html($slide['cluster_title']) ?>
                       </span>
                     </span>
@@ -108,12 +110,11 @@ $cluster_map = array_column($slides, 'cluster_id');
 
               <div class="flex flex-col gap-4 ">
                 <div class="flex flex-col gap-1">
-                  <h2 class=" text-on-surface text-lg/snug">
+                  <h2 class="text-light text-xl">
                     <?= esc_html($unit['title']) ?>
                   </h2>
 
-
-                  <p class="text-sm text-on-surface-subtle">
+                  <p class="text-sm text-light/60">
                     <?= esc_html__('Mulai ', 'karsa_start') . Format::rupiah($unit['price']) ?>
                   </p>
 
@@ -135,16 +136,16 @@ $cluster_map = array_column($slides, 'cluster_id');
             type="button"
             x-on:click="prev()"
             aria-label="<?= esc_attr__('Unit sebelumnya', 'karsa_start') ?>"
-            class="cursor-pointer inline-flex items-center justify-center size-9 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 transition-colors">
+            class="btn--transparent-dark">
 
-            <i data-lucide="chevron-left" class="size-4 text-white"></i>
+            <i data-lucide="chevron-left" class="icon"></i>
           </button>
 
           <div
             class="min-w-12 inline-flex items-center justify-center gap-2 text-sm font-medium tabular-nums">
-            <span x-text="index + 1" class="text-white">1</span>
-            <span class="text-white/40">/</span>
-            <span class="text-white/60">
+            <span x-text="index + 1" class="text-light">1</span>
+            <span class="text-light/40">/</span>
+            <span class="text-light/60">
               <?= esc_html(count($slides)) ?>
             </span>
           </div>
@@ -153,8 +154,8 @@ $cluster_map = array_column($slides, 'cluster_id');
             type="button"
             x-on:click="next()"
             aria-label="<?= esc_attr__('Unit berikutnya', 'karsa_start') ?>"
-            class="cursor-pointer inline-flex items-center justify-center size-9 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 transition-colors">
-            <i data-lucide="chevron-right" class="size-4 text-white"></i>
+            class="btn--transparent-dark">
+            <i data-lucide="chevron-right" class="icon"></i>
           </button>
         </div>
 
