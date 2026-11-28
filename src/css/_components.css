@@ -58,7 +58,7 @@
   }
 
   .badge {
-    @apply self-start inline-flex items-center py-1 px-2.5 gap-2 rounded-full border border-transparent;
+    @apply self-start inline-flex items-center py-1 px-3 gap-2 rounded-full border border-transparent;
 
     > .label {
       @apply text-xs;
@@ -66,6 +66,13 @@
 
     &.badge--transparent-dark {
       @apply bg-dark/40 border border-light/20 backdrop-blur-md;
+      > .label {
+        @apply text-light;
+      }
+    }
+
+    &.badge--transparent-light {
+      @apply bg-light/20 border border-light/40 backdrop-blur-md;
       > .label {
         @apply text-light;
       }
