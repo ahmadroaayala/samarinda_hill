@@ -99,8 +99,8 @@ $cluster_map = array_column($slides, 'cluster_id');
 
                 <?php if ($slide['cluster_title'] !== ''): ?>
                   <div class="absolute top-2 left-2">
-                    <span class="badge bg-dark/40 border border-light/20 backdrop-blur-md">
-                      <span class="label text-light">
+                    <span class="badge badge--transparent-dark">
+                      <span class="label">
                         <?= esc_html($slide['cluster_title']) ?>
                       </span>
                     </span>
