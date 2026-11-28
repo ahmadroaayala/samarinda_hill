@@ -136,7 +136,7 @@ $cluster_map = array_column($slides, 'cluster_id');
             type="button"
             x-on:click="prev()"
             aria-label="<?= esc_attr__('Unit sebelumnya', 'karsa_start') ?>"
-            class="btn--transparent-dark">
+            class="btn-transparent btn--dark">
 
             <i data-lucide="chevron-left" class="icon"></i>
           </button>
@@ -154,7 +154,7 @@ $cluster_map = array_column($slides, 'cluster_id');
             type="button"
             x-on:click="next()"
             aria-label="<?= esc_attr__('Unit berikutnya', 'karsa_start') ?>"
-            class="btn--transparent-dark">
+            class="btn-transparent btn--dark">
             <i data-lucide="chevron-right" class="icon"></i>
           </button>
         </div>
