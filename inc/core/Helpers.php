@@ -50,4 +50,31 @@ class Helpers
   {
     self::render("views/{$name}", $args);
   }
+
+  // is valid post
+  public static function resolve_post(mixed $post): ?\WP_Post
+  {
+    if ($post instanceof \WP_Post) {
+      return $post;
+    }
+
+    if (is_numeric($post) && (int) $post > 0) {
+      $resolved = get_post((int) $post);
+      return $resolved instanceof \WP_Post ? $resolved : null;
+    }
+
+    return null;
+  }
+
+  // extract id 
+  public static function resolve_id(mixed $item): int
+  {
+    return match (true) {
+      $item instanceof \WP_Post => $item->ID,
+      $item instanceof \WP_Term => $item->term_id,
+      \is_array($item) => (int) ($item['ID'] ?? $item['id'] ?? $item['term_id'] ?? 0),
+      is_numeric($item) => (int) $item,
+      default => 0,
+    };
+  }
 }
