@@ -10,7 +10,7 @@ use KarsaStart\Project\Normalizer;
 $cluster_query = new WP_Query([
   'post_type' => 'cluster',
   'post_status' => 'publish',
-  'posts_per_page' => -1,
+  'posts_per_page' => 3,
   'orderby' => 'title',
   'order' => 'ASC',
   'no_found_rows' => true,

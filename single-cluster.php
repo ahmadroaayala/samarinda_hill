@@ -29,26 +29,44 @@ get_header();
       ]); ?>
     </div>
 
-    <div class="container grid gap-6 md:grid-rows-[auto_auto] md:grid-cols-12">
+    <div class="container flex flex-col gap-6">
 
       <!-- Image gallery -->
       <?php Helpers::module('image-gallery', [
         'gallery' => $cluster['gallery'],
-        'wrapper_class' => 'md:row-span-1 md:col-span-7'
+        'wrapper_class' => ''
       ]); ?>
 
       <div
-        class="md:row-span-2 md:col-span-5 md:self-start md:sticky md:p-6 md:border md:border-outline/20 md:shadow-sm md:rounded-2xl overflow-hidden">
-        <h1 class="text-xl"><?= esc_html($cluster['title']) ?></h1>
+        class="flex flex-col gap-1">
+        <h1><?= esc_html($cluster['title']) ?></h1>
         <p class="text-sm text-on-surface-subtle"><?= esc_html($cluster['full_address']) ?></p>
       </div>
 
-      <div class="md:row-span-1 md:col-span-7">
-        <div>
-          <?= $cluster['content'] ?>
-        </div>
+      <?php if (!empty($cluster['cluster_facility'])): ?>
+        <!-- <?php dump($cluster['cluster_facility']); ?> -->
+        <div class="flex flex-col gap-2">
+          <h2><?= __('Fasilitas cluster', 'karsa_start') ?></h2>
 
-      </div>
+          <div class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none">
+            <?php foreach ($cluster['cluster_facility'] as $facility): ?>
+              <div
+                class="w-40 group shrink-0 snap-start flex flex-col gap-2">
+                <img
+                  loading="lazy"
+                  class="aspect-4/3 object-cover rounded-2xl overflow-hidden"
+                  src="<?= esc_url($facility['thumbnail_url']) ?>" alt="">
+
+                <h3 class="font-medium text-sm/tight text-on-surface-variant">
+                  <?= esc_html($facility['title']) ?>
+                </h3>
+              </div>
+            <?php endforeach; ?>
+          </div>
+
+        </div>
+      <?php endif; ?>
+
     </div>
 
   </div>
