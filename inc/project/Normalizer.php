@@ -6,12 +6,68 @@ use KarsaStart\Core\Taxonomy;
 
 class Normalizer
 {
+
   private static function fallback_image(): string
   {
     static $url = null;
     return $url ??= Helpers::get_image_placeholder_url('fallback-2-undraw');
   }
 
+  // TAXONOMY AND TERMS
+  // normalize a term
+  public static function term(mixed $term, string $taxonomy = ''): array
+  {
+    if (is_numeric($term) && (int) $term > 0) {
+      $term = get_term((int) $term, $taxonomy);
+    }
+
+    if (!($term instanceof \WP_Term)) {
+      return [];
+    }
+
+    $link = get_term_link($term);
+
+    return [
+      'id' => $term->term_id,
+      'name' => $term->name,
+      'slug' => $term->slug,
+      'taxonomy' => $term->taxonomy,
+      'count' => $term->count,
+      'permalink' => is_wp_error($link) ? '' : $link,
+    ];
+  }
+
+  // list of normalized terms
+  public static function terms(mixed $terms, string $taxonomy = ''): array
+  {
+    if (!\is_array($terms) || empty($terms)) {
+      return [];
+    }
+
+    $normalized = array_map(
+      static fn(mixed $item): array => self::term($item, $taxonomy),
+      $terms
+    );
+
+    return array_values(array_filter($normalized));
+  }
+
+  //  get and normalize all terms from a post
+  public static function post_terms(mixed $post, string $taxonomy): array
+  {
+    $post_id = Helpers::resolve_id($post);
+
+    if ($post_id <= 0) {
+      return [];
+    }
+
+    return self::terms(get_the_terms($post_id, $taxonomy), $taxonomy);
+  }
+
+  // CPT
+  // CLUSTER
+  // UNIT
+  // CLUSTER and UNIT
   public static function units_by_cluster(array $cluster_ids, array $unit_ids): array
   {
     $items = [];
