@@ -34,14 +34,13 @@ $nav_items = [
   <div id="page" class="min-h-screen flex flex-col">
 
     <!-- Header Template Here -->
-    <header class="sticky z-100 top-0 py-4 bg-surface border-b border-b-outline/60 shadow-md">
+    <header class="sticky z-100 top-0 py-4 bg-surface border-b border-b-outline-subtle shadow-md">
       <div class="container flex items-center justify-between">
 
         <div>
           <a href="<?= esc_url(home_url('/')) ?>">
-            <span class="font-serif flex flex-col font-bold text-on-surface leading-tight ">
-              <span>Samarinda</span>
-              <span>Hill</span>
+            <span class="font-serif font-bold text-on-surface text-lg">
+              Samarinda Hill
             </span>
           </a>
         </div>
@@ -65,9 +64,9 @@ $nav_items = [
             <i x-show="open" x-cloak data-lucide="x"></i>
           </button>
 
-          <nav x-show="open" class="absolute top-full right-0 mt-2 w-2xs" x-transition>
-            <div class=" p-4 bg-surface-bright border border-outline/20 shadow-md rounded-lg">
-              <div class="flex flex-col gap-2">
+          <nav x-show="open" class="absolute top-full right-0 mt-2 w-3xs" x-transition>
+            <div class="p-4 bg-surface rounded-2xl border border-outline-subtle shadow-md">
+              <div class="flex flex-col gap-4">
                 <?php foreach ($nav_items as $item): ?>
                   <a href="<?= esc_url($item['url']) ?>">
                     <?= esc_html($item['label']) ?>
