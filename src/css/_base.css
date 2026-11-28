@@ -18,7 +18,7 @@
   h4,
   h5,
   h6 {
-    @apply font-serif text-on-surface tracking-[-0.02em];
+    @apply font-sans text-on-surface tracking-[-0.02em];
   }
 
   /* heading weight */
@@ -39,23 +39,23 @@
 
   /* heading size */
   h1 {
-    @apply text-3xl lg:text-4xl;
+    @apply text-3xl;
   }
 
   h2 {
-    @apply text-2xl lg:text-3xl;
+    @apply text-xl;
   }
 
   h3 {
-    @apply text-xl lg:text-2xl;
+    @apply text-lg;
   }
 
   h4 {
-    @apply text-lg lg:text-xl;
+    @apply text-base;
   }
 
   h5 {
-    @apply text-base lg:text-lg;
+    @apply text-base;
   }
 
   h6 {

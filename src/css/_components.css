@@ -74,9 +74,5 @@
     &.badge--primary {
       @apply bg-primary-container border-primary-container text-on-primary-container;
     }
-
-    &.badge--danger {
-      @apply text-on-danger-container bg-danger-container border-danger-container;
-    }
   }
 }
