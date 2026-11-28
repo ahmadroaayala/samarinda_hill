@@ -1,15 +1,20 @@
 @layer components {
+  .btn--transparent-dark {
+    @apply cursor-pointer inline-flex items-center justify-center size-9 rounded-full bg-dark/20 hover:bg-dark/40 backdrop-blur-md border border-light/20 transition-colors;
+
+    & > .icon {
+      @apply size-5 stroke-2 text-light;
+    }
+  }
+
   .btn {
     @apply inline-flex items-center justify-center gap-2
     px-4 py-2
     h-9
     rounded-lg
     border border-transparent
-    cursor-pointer;
-
-    &:hover {
-      @apply opacity-90;
-    }
+    cursor-pointer
+    transition-colors;
 
     > .icon {
       @apply h-4 w-4 stroke-2;
@@ -32,9 +37,9 @@
     }
 
     &.btn--primary {
-      @apply bg-primary
+      @apply bg-primary hover:bg-primary-hover
       text-on-primary
-      border-primary;
+      border-primary hover:border-primary-hover;
 
       &.btn--inverse {
         @apply bg-on-primary
@@ -51,16 +56,15 @@
   .badge {
     @apply self-start inline-flex items-center py-1 px-2.5 gap-2 rounded-full border border-transparent;
 
-    &:hover {
-      @apply opacity-90;
-    }
-
     > .label {
       @apply text-xs;
     }
 
-    > .icon {
-      @apply w-4 h-4 stroke-2;
+    &.badge--transparent-dark {
+      @apply bg-dark/40 border border-light/20 backdrop-blur-md;
+      > .label {
+        @apply text-light;
+      }
     }
 
     &.badge--neutral {
