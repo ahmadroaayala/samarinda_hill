@@ -5,6 +5,7 @@ use WP_Error;
 
 class Taxonomy
 {
+
   public static function get_active_tree(string $taxonomy): array
   {
     // get all taxonomy that already have posts
