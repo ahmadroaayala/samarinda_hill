@@ -8,9 +8,6 @@ use KarsaStart\Core\Format;
 
 $items = $args['items'] ?? [];
 
-
-
-$slides = [];
 $slides = [];
 foreach ($items as $cluster) {
   $cid = (string) ($cluster['id'] ?? '');
@@ -110,7 +107,7 @@ $cluster_map = array_column($slides, 'cluster_id');
 
               <div class="flex flex-col gap-4 ">
                 <div class="flex flex-col gap-1">
-                  <h2 class="text-light text-xl">
+                  <h2 class="text-light text-lg">
                     <?= esc_html($unit['title']) ?>
                   </h2>
 
